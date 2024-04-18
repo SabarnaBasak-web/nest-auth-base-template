@@ -6,7 +6,7 @@ import { CreateUserDto, LoginDto } from './dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('signin')
+  @Post('signup')
   signIn(@Body() createUser: CreateUserDto) {
     return this.authService.signUpUser(createUser);
   }
@@ -14,7 +14,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   login(@Body() loginInDto: LoginDto) {
-    console.log('@@ login controller');
     return this.authService.loginUser(loginInDto);
   }
 }
