@@ -6,6 +6,6 @@ import { JwtGuard } from 'src/auth/Guards';
 export class TodoController {
   @Get()
   getAllTodos() {
-    return 'all todos';
+    return 'all todos!!';
   }
 }
