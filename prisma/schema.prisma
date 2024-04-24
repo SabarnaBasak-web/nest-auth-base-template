@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id       Int    @id @default(autoincrement())
   password String
   email    String @unique
@@ -23,6 +23,8 @@ model Users {
 
   Todos         Todos[]
   Notifications Notifications[]
+
+  @@map("Users")
 }
 
 model Todos {
@@ -34,8 +36,8 @@ model Todos {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  usersId       Int
-  userId        Users          @relation(fields: [usersId], references: [id])
+  userId        Int
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   Notifications Notifications?
 }
 
@@ -43,9 +45,9 @@ model Notifications {
   id               Int      @id @default(autoincrement())
   notificationDate DateTime
 
-  user    Users @relation(fields: [usersId], references: [id])
-  usersId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 
-  todo    Todos @relation(fields: [todosId], references: [id])
+  todo    Todos @relation(fields: [todosId], references: [id], onDelete: Cascade)
   todosId Int   @unique
 }
